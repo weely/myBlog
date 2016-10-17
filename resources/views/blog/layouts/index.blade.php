@@ -56,7 +56,7 @@
                         @if ($posts->hasMorePages())
                             <li class="next">
                                 <a href="{!! $posts->nextPageUrl() !!}">
-                                    Next {{ $tag->tag }} Posts
+                                    Next {{ $tag->tag }} Posts.
                                     <i class="fa fa-long-arrow-right"></i>
                                 </a>
                             </li>
