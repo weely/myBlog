@@ -18,7 +18,11 @@
                 <li>
                     <a href="/">Home</a>
                 </li>
+                <li>
+                    <a href="/admin">Admin Post</a>
+                </li>
             </ul>
+
         </div>
     </div>
 </nav>

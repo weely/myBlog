@@ -1,16 +1,16 @@
 @extends('blog.layouts.master')
 
 @section('page-header')
-    <header class="intro-header" style="backgroud-image: url('{{ page_image($page_image) }}')">
+    {{--http://n1.itc.cn/img8/wb/smccloud/fetch/2015/09/15/8173412602700564.JPG--}}
+    <header class="intro-header"
+            style="background-image: url('http://n1.itc.cn/img8/wb/smccloud/fetch/2015/09/15/8173412602700564.JPG')">
         <div class="container">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                        <div class="site-heading">
-                            <h1>{{ $title }}</h1>
-                            <hr class="small">
-                            <h2 class="subheading">{{ $subtitle }}</h2>
-                        </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>{{ $title }}</h1>
+                        <hr class="small">
+                        <h2 class="subheading">{{ $subtitle }}</h2>
                     </div>
                 </div>
             </div>
