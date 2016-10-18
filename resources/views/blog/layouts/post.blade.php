@@ -69,7 +69,7 @@
                     @endif
                     @if ($post->olderPost($tag))
                         <li class="next">
-                            <a href="{{ !post->olderPost($tag)->url($tag) }}">
+                            <a href="{{ !$post->olderPost($tag)->url($tag) }}">
                                 Next Older {{ $tag ? $tag->tag : '' }} post
                                 <i class="fa fa-long-arrow-right"></i>
                             </a>

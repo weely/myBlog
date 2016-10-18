@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="java">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function myFunction()
+        {
+            var x = document.getElementById('txt1').value;
+            if (x == "" || isNaN(x)) {
+                alert('输入非数字');
+            } else {
+                console.log("输入符合要求");
+            }
+            var a = document.getElementById('test1');
+            a.innerHTML = 'hello world';
+        }
+
+        function changeColor()
+        {
+            var img1 = document.getElementById('img1');
+            if (img1.src.match("bulbon")) {
+                img1.src="http://www.runoob.com/images/pic_bulboff.gif";
+            } else {
+                img1.src="http://www.runoob.com/images/pic_bulbon.gif";
+            }
+        }
+
+        function myFunction1(){
+            document.write("hahaha，你中计啦");
+        }
+    </script>
+</head>
+<body>
+<button type="button" onclick="myFunction1()">点我啊</button>
+<p id="test1"></p>
+<img id="img1" onclick="changeColor()" src="http://www.runoob.com/images/pic_bulboff.gif" width="100" height="180">
+<input type="text" id="txt1">
+<button type="button" onclick="myFunction()">输入</button>
+<button type="button" onclick="alert('练习js')">点击练习</button>
+<h1>我的js页面</h1>
+<p>hahaha</p>
+</body>
+</html>
