@@ -4,8 +4,7 @@
 ])
 
 @section('page-header')
-    <header class="intro-header"
-            style="background-image: url('http://n1.itc.cn/img8/wb/smccloud/fetch/2015/09/15/8173412602700564.JPG')">
+    <header class="intro-header" style="background-image: url('{{ page_image($post->page_image) }}')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -53,7 +52,7 @@
                     @endif
                     @if ($post->newerPost($tag))
                         <li class="next">
-                            <a href="{!! $psot->newerPost($tag)->url($tag) !!}">
+                            <a href="{!! $post->newerPost($tag)->url($tag) !!}">
                                 Next {{ $tag->tag }} Post
                                 <i class="fa fa-long-arrow-right"></i>
                             </a>
@@ -70,7 +69,7 @@
                     @endif
                     @if ($post->olderPost($tag))
                         <li class="next">
-                            <a href="{{ !$post->olderPost($tag)->url($tag) }}">
+                            <a href="{!! $post->olderPost($tag)->url($tag) !!}">
                                 Next Older {{ $tag ? $tag->tag : '' }} post
                                 <i class="fa fa-long-arrow-right"></i>
                             </a>
