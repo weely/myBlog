@@ -64,7 +64,7 @@
                     @else
                         @if($posts->currentPage() >1)
                             <li class="previous">
-                                <a href="{!! $post->url($posts->currentPage() -1) !!}">
+                                <a href="{!! $posts->url($posts->currentPage() -1) !!}">
                                     <i class="fa fa-long-arrow-left fa-lg"></i>
                                     Newer {{$tag ? $tag->tag: ''}} Posts
                                 </a>
