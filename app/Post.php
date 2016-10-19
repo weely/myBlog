@@ -80,7 +80,7 @@ class Post extends Model
             return;
         }
 
-        $this->tags->detach();
+        $this->tags()->detach();
     }
 
     /**

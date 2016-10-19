@@ -28,7 +28,7 @@ class Tag extends Model
                 'title' => $tag,
                 'subtitle' => 'Subtitle for ' . $tag,
                 'page_image' => '',
-                'meta_dexcription' => '',
+                'meta_description' => '',
                 'reverse_direction' => false,
             ]);
         }

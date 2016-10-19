@@ -48,7 +48,7 @@ class PostController extends Controller
         $post->syncTags($request->get('tags', []));
 
         if ($request->action === 'continue') {
-            return redirct()->back->withSuccess('Post saved');
+            return redirect()->back()->withSuccess('Post saved');
         }
 
         return redirect()->route('admin.post.index')->withSuccess('Post saved');

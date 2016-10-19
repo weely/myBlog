@@ -13,9 +13,9 @@
 </div>
 
 <div class="form-group">
-    <label for="meta_description" class="col-md-3 control-label">Meta Descrition</label>
+    <label for="meta_description" class="col-md-3 control-label">Meta Description</label>
     <div class="col-md-8">
-        <textarea class="form-control" id="meta_descrition" name="meta_descrition" rows="3">{{ $meta_descrition }}</textarea>
+        <textarea class="form-control" id="meta_description" name="meta_description" rows="3">{{ $meta_description }}</textarea>
     </div>
 </div>
 
