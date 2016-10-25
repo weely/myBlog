@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>测试js</title>
+    <link href="test1.html" style="">
+    <script>
+        var a = "null";
+        var person = {name: "小明", age: "18", sex: "男"};
+        var list1 = "前端工具简介：install stuff(安装类工具):npm、bower、yeoman;" +
+                "does stuff(处理事务类工具):node.js、grunt、gulp、webpack、brunchu;<br>" +
+                "1.如果是不完整的语句，js会继续读取下一行的语句，而如果是完整语句，没有分号也视为语句结束，return(完整语句)";
+        function errDemo() {
+            try {
+                var a = document.getElementById("number").value;
+                if (a == '') throw "输入为空";
+                if (isNaN(a)) throw "输入非数字";
+                if (a > 100) throw "输入数字大于100";
+                if (a < 0) throw "小于0";
+            } catch (err) {
+                document.getElementById("check").innerHTML = "错误:" + err + "!";
+            }
+        }
+
+        function myFuction() {
+            var a = document.getElementById("demo");
+            a.innerHTML = list1;
+            var b = 10;
+            switch (b) {
+                case "10":
+                    alert(10);
+                default:
+                    alert("不匹配,switch判断字符类型不同时为false");
+            }
+            var c;
+            if (c === undefined) {
+                alert("未定义测试");
+            }
+        }
+
+        function getDate() {
+            var time = new Date();
+            document.getElementById("demoInput").value = time;
+            setTimeout(function () {
+                getDate()
+            }, 500);
+        }
+
+        function getTime() {
+            var today = new Date();
+            h = today.getHours();
+            m = today.getMinutes();
+            s = today.getSeconds();
+            document.getElementById("time").innerHTML = check(h) + ":" + check(m) + ":" + check(s);
+            setTimeout(function () {
+                getTime()
+            }, 500);
+        }
+
+        function check(n) {
+            if (n < 10) {
+                n = "0" + n;
+            }
+            return n;
+        }
+        function showLength() {
+            var a = document.getElementById("demo").innerHTML;
+            alert(a.search(/h/g));
+            alert(a.length);
+        }
+        function checkForm() {
+            var name = document.forms['myForm']['name'].value;
+            if (name == null || name == "") {
+                document.getElementById("isName").innerHTML = "用户名为空";
+                return false;
+            } else {
+                var regex = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+                var email = document.forms['myForm']['email'].value;
+                if (!regex.test(email)) {
+                    document.getElementById("isEmail").innerHTML = "邮件地址不符合规范";
+                    return false;
+                } else {
+                    regex.lastIndex = 0; //归零搜索的位置（不处理第二次执行test()匹配会为false）
+                    alert(regex.test(email));
+                }
+            }
+        }
+
+        function funJsonDemo() {
+            var jsonDemo = '{"students":[{"name":"小明","sex":"boy"}, {"name":"小号","sex":"girl"}, {"name":"大号","sex":"男"}]}';
+            var jsonTojs = JSON.parse(jsonDemo);
+            document.getElementById("button1").innerHTML = jsonTojs.students[0].name;
+            alert(h);
+        }
+    </script>
+</head>
+<body onload="getTime()">
+<p id="demo">hello world</p>
+<button type="button" onclick="myFuction()">点我啊</button>
+<br>
+<hr>
+<label>当前时间:</label><label id="time"></label><br><br>
+<input type="text" id="demoInput" size="45"><br>
+<button type="button" onclick="getDate()">显示时间</button>
+<button type="button" onclick="showLength()">显示字符长度</button>
+<br><br>
+<input type="text" id="number"><label id="check"></label><br>
+<button type="button" onclick="errDemo()">输入验证</button>
+<br>
+<hr>
+<form name="myForm" action="test1.html" method="post" onsubmit="return checkForm()">
+    <fieldset>
+        <legend>表头</legend>
+        <label>name:</label><input type="text" id="name" name="name"><label id="isName"></label><br>
+        <label>sex:</label><input type="text" id="sex">
+        <label>email:</label><input type="text" id="email" name="email"><label id="isEmail"></label>
+        <input type="submit" value="校验">
+    </fieldset>
+</form>
+<button type="button" onclick="funJsonDemo()" id="button1">JsonToJs</button>
+<br>
+<a href="javascript:void(alert('Warning!!!'))">点我!</a>
+</body>
+</html>
