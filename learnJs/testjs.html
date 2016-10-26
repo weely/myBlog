@@ -6,7 +6,15 @@
     <link href="test1.html" style="">
     <script>
         var a = "null";
-        var person = {name: "小明", age: "18", sex: "男"};
+        function forInDemo() {
+            var person = {name: "小明", age: "18", sex: "男"};
+            var txt = "";
+            for (var x in person) {
+                txt += person[x];
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+
         var list1 = "前端工具简介：install stuff(安装类工具):npm、bower、yeoman;" +
                 "does stuff(处理事务类工具):node.js、grunt、gulp、webpack、brunchu;<br>" +
                 "1.如果是不完整的语句，js会继续读取下一行的语句，而如果是完整语句，没有分号也视为语句结束，return(完整语句)";
@@ -89,8 +97,14 @@
         function funJsonDemo() {
             var jsonDemo = '{"students":[{"name":"小明","sex":"boy"}, {"name":"小号","sex":"girl"}, {"name":"大号","sex":"男"}]}';
             var jsonTojs = JSON.parse(jsonDemo);
-            document.getElementById("button1").innerHTML = jsonTojs.students[0].name;
-            alert(h);
+            var button1 = document.getElementById("button1");
+            button1.innerHTML = jsonTojs.students[0].name;
+            button1.style.background = "blue";
+            button1.style.coloe = "yellow";
+            button1.onclick = function () {
+                showLength()
+            };
+            //button1.style.visibility = 'hidden';      //visible
         }
     </script>
 </head>
@@ -119,6 +133,17 @@
 </form>
 <button type="button" onclick="funJsonDemo()" id="button1">JsonToJs</button>
 <br>
-<a href="javascript:void(alert('Warning!!!'))">点我!</a>
+<a href="javascript:void(alert('Warning!!!'))">点我!</a><br>
+<button id="listenDemo" onclick="forInDemo()">点我试试</button>
+<script>
+    document.getElementById('listenDemo').addEventListener('click', function () {
+        alert('你好,listen demo');
+    });
+    var aa = 256;
+    document.write(aa.toString() + "<br>");
+    document.write(aa.toString(16) + "<br>");
+    document.write(aa.toString(8));
+    document.write(aa.toString(2));
+</script>
 </body>
 </html>
