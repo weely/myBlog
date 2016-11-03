@@ -4,10 +4,14 @@
     <meta charset="utf-8">
     <title>测试js</title>
     <link href="test1.html" style="">
+    <!--百度云引入jquery-->
+    <script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"></script>
     <script>
         var a = "null";
+        var human = "ming,xiao,flower";
+
         function forInDemo() {
-            var person = {name: "小明", age: "18", sex: "男"};
+            var person = {name: "mingxiao", age: "18", sex: "男"};
             var txt = "";
             for (var x in person) {
                 txt += person[x];
@@ -106,20 +110,51 @@
             };
             //button1.style.visibility = 'hidden';      //visible
         }
+
+        setInterval(function () {
+            var d = new Date();
+            var currentTime = d.toLocaleTimeString();
+            document.getElementById('currentTime').innerHTML = currentTime;
+        }, 500);
+
+        var add = (function () {
+            var counter = 0;
+            return function () {
+                return counter += 1;
+            }
+        })();
+
+        $(function(){
+            $("#number").click(function(){
+                $("#check").append("测试jquery  append()函数");
+                alert($("#number").val());
+                $("#number").before("<h1>Hello</h1>");
+            });
+            $("#label1").mouseenter(function(){
+                //JQUERY remove()函数用于删除某个指定元素；empty()从被选元素中删除子元素；
+                $(this).remove();
+                $("#divEmpty").empty();
+                //
+            });
+        });
     </script>
 </head>
 <body onload="getTime()">
-<p id="demo">hello world</p>
-<button type="button" onclick="myFuction()">点我啊</button>
+<p id="demo">HELLO WORLD</p>
+<label id="label1">Test JQUERY FUN DELETE</label>
+<div id="divEmpty">
+    <label>TEST FUNTION EMPTY</label>
+</div>
+<button type="button" onclick="myFuction()">click</button>
 <br>
 <hr>
 <label>当前时间:</label><label id="time"></label><br><br>
 <input type="text" id="demoInput" size="45"><br>
-<button type="button" onclick="getDate()">显示时间</button>
-<button type="button" onclick="showLength()">显示字符长度</button>
+<button type="button" onclick="getDate()">show time</button>
+<button type="button" onclick="showLength()">show str length</button>
 <br><br>
 <input type="text" id="number"><label id="check"></label><br>
-<button type="button" onclick="errDemo()">输入验证</button>
+<button type="button" onclick="errDemo()">input confirm</button>
 <br>
 <hr>
 <form name="myForm" action="test1.html" method="post" onsubmit="return checkForm()">
@@ -133,17 +168,45 @@
 </form>
 <button type="button" onclick="funJsonDemo()" id="button1">JsonToJs</button>
 <br>
-<a href="javascript:void(alert('Warning!!!'))">点我!</a><br>
-<button id="listenDemo" onclick="forInDemo()">点我试试</button>
+<a href="javascript:void(alert('Warning!!!'))">click me!</a><br>
+<button id="listenDemo" onclick="forInDemo()">try click me</button>
 <script>
     document.getElementById('listenDemo').addEventListener('click', function () {
         alert('你好,listen demo');
     });
     var aa = 256;
-    document.write(aa.toString() + "<br>");
-    document.write(aa.toString(16) + "<br>");
-    document.write(aa.toString(8));
-    document.write(aa.toString(2));
+    document.write('<br>' + aa.toString() + "<br>");
+    document.write(aa.toString(16) + '<br>');
+    document.write(Number.NaN + '<br>');
+    document.write(isNaN(1000 / 0) + "" + isNaN(1000 / 5));
+    document.write(Number.MAX_VALUE);
+    document.write('<hr>implode:  合并成字符，explode(split): 裂开成数组<hr>');
+    document.write('<br>' + typeof human + typeof(human.split(',')) + human.split(',') + human.split(',').pop() + "<br>");
+    document.write('<hr>' + human.split(',').push('小心') + '<hr>');
+    document.write('<hr>floor()向下取整，random()函数返回0-1之间的随机数' + Math.round(3.5) + '&nbsp&nbsp' + Math.E + '&nbsp' + Math.LOG2E + '<hr>');
+
+    var patten1 = new RegExp('\\e+');
+    document.write(patten1.exec('The best things in life are free') + '<hr>');
+
+    var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    document.write("浏览器宽度:" + w + "&nbsp浏览器高度:" + h + "&nbsp可用屏幕宽度:" + screen.availWidth +
+            "可用屏幕高度:" + screen.availHeight + "&nbsp色彩分辨率:" + screen.pixelDepth);
+    //window.resizeTo(1000, 600);
+    //close();
+    document.write("<hr>" + location.hostname + location.port + '&nbsp' + location.host + '&nbsp' + location.pathname);
+    document.write("<hr>" + navigator.appCodeName + '&nbsp' + navigator.appname + '&nbsp' + navigator.appVersion + '&nbsp' + navigator.platform);
+
 </script>
+<hr/>
+<br/>
+<h1 id="currentTime"></h1>
+<br>
+<button type="button" id="" onclick="document.getElementById('counter').innerHTML = add()">计数</button>
+<h3 id="counter"></h3>
+<hr>
+<button type="button" id="btnReback" onclick="history.forward()">前进</button>
 </body>
 </html>
+
+

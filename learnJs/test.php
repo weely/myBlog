@@ -33,3 +33,8 @@ function my_sort($arrays, $sort_key, $sort_order = SORT_ASC, $sort_type = SORT_N
     return false;
 }
 
+$jsonStr = '{"name":"xiaoming","age":18,"sex":"girl"}';
+var_dump($jsonStr);
+$datas = json_decode($jsonStr);
+var_dump($datas);
+echo $datas->name;
