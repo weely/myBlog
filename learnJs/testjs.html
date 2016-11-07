@@ -197,6 +197,18 @@
     document.write("<hr>" + location.hostname + location.port + '&nbsp' + location.host + '&nbsp' + location.pathname);
     document.write("<hr>" + navigator.appCodeName + '&nbsp' + navigator.appname + '&nbsp' + navigator.appVersion + '&nbsp' + navigator.platform);
 
+    $(function(){
+        $("#btnReback").click(function(){
+            console.log(history);
+            if (history.state) {
+                alert(history.length);
+                history.forward();
+            } else {
+                //localhost:63342指向的是根目录的上一级目录
+                location.href = "http://localhost:63342/blogApp/learnJs/test1.html";
+            }
+        });
+    });
 </script>
 <hr/>
 <br/>
@@ -205,7 +217,7 @@
 <button type="button" id="" onclick="document.getElementById('counter').innerHTML = add()">计数</button>
 <h3 id="counter"></h3>
 <hr>
-<button type="button" id="btnReback" onclick="history.forward()">前进</button>
+<button type="button" id="btnReback">前进</button>
 </body>
 </html>
 

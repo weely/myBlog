@@ -38,3 +38,10 @@ var_dump($jsonStr);
 $datas = json_decode($jsonStr);
 var_dump($datas);
 echo $datas->name;
+
+
+
+//创建项目语句
+//composer create-project laravel/laravel projectName --prefer-dist
+//composer create-project laravel/laravel projectName --prefer-dist
+//js判断数组需要用 Array.isArray(arr); 来判断

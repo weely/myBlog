@@ -35,7 +35,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('blog/{slug}','BlogController@showPost');
 });
 
-//Route::resource('/login', 'Auth\UserController');
+//Route::resource('/user', 'Auth\UserController');
+Route::resource('/infos', 'InfosController');
 
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Hash;
+use App\Token;
 
 class UserController extends Controller
 {
@@ -19,7 +20,9 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('auth.login');
+        $d = Token::find(1);
+        dd($d->toArray());
+        //return view('auth.login');
     }
 
     public function store(Request $request)

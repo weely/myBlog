@@ -2,13 +2,41 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!--刷新网页-->
+    <!--<meta http-equiv="refresh" content="3;url=">-->
     <title>Title</title>
     <script src=""></script>
     <!--新浪引入jquery-->
     <script src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
     <script>
+        "use strict" //申明严格模式；
+
+        const PI = 3.1415;  //定义常量，
+
+        var xiaoming = {
+            name: '小明',
+            birth: 1990,
+            age: function () {
+                var y = new Date().getFullYear();
+                return y - this.birth;
+            }
+        };
+
+        function pow(x) {
+            return x * x;
+        }
+
+        $(function(){
+            $("#btnShow").click(function(){
+                //append、prepend、after、before
+                $(this).append("<label>" + xiaoming.age() + "</label>");
+                $(this).after("<label>" + xiaoming.age() + "</label>");
+            });
+        });
+
+
         function myFunction() {
-            var x = document.getElementById('txt1').value;
+            let x = document.getElementById('txt1').value;
             if (x == "" || isNaN(x)) {
                 alert('输入非数字');
             } else {
@@ -63,7 +91,7 @@
         function checkCookie() {
             var user = getCookie("username");
             if (user != "") {
-                alert("Welcome again " + user);
+                alert("Welcome again " + user.toUpperCase());
             }
             else {
                 user = prompt("Please enter your name:", "");
@@ -71,6 +99,70 @@
                     setCookie("username", user, 30);
                 }
             }
+        }
+
+        function sliceDemo(a, ...rest) {
+            console.log(rest.length);
+            console.log(arguments.length);
+            var arr = [1, 2, 3, '5'];
+            arr.slice(1, 3); //类似string的substring()函数，不给参数，从头截到尾，类似复制数组
+            console.log(arr);
+            arr.unshift("a", "b", "C");
+            console.log(arr);
+            //alert("unshift()从开头插入元素,后字符长度为" + arr.length);
+            arr.sort();
+            console.log(arr);
+            arr.reverse();
+            console.log(arr);
+            var arr2 = ["china", "ming", "time"];
+            var concatarr = arr.concat(arr2);
+            console.log(concatarr);
+            var joinstr = concatarr.join('-');
+            console.log(joinstr + concatarr.pop());
+            var arr6 = [[1, 2, 3], [400, 500, 600], '-'];
+            var joinstr2 = arr6.join('-');
+            console.log(joinstr2);
+
+            var o = {
+                name: 'Jack',
+                age: 20,
+                city: 'Beijing'
+            };
+            console.log("for...in遍历对象");
+            for (var key in o) {
+                console.log(key); // 'name', 'age', 'city'
+            }
+
+            for (var key in o) {
+                if (o.hasOwnProperty(key))
+                    console.log(key); // 'name', 'age', 'city'
+            }
+            //set(key,value)函数添加新的键值对，delete()删除,map对象的方法
+            var mapDemo = new Map([["ming", 18], ["jane", 19], ["babora", 20]]);
+            console.log(mapDemo);
+            console.log(mapDemo.get('ming'));
+            console.log("for...of遍历");
+            for (var x of mapDemo) {
+                console.log(x); // 'name', 'age', 'city'
+            }
+            console.log(3.1415926 * 5 *5);
+            var resultMap = arr.map(pow);
+            console.log(resultMap);
+
+            console.log(arr.reduce(function(x, y){return parseInt(x) + parseInt(y);}));
+
+            var arrnum = ['1', '2', '3', '4'];
+            console.log(arrnum.map(parseInt));
+
+            var s= "1245";
+            s.split('');
+            console.log(s.split(''));
+            console.log(s.split('').map(function(m){return m-0;}));
+
+            console.log(arr.sort());
+
+            var arrowDemo = 3 => x*x;
+            console.log(arrowDemo);
         }
 
         $(document).ready(function () {
@@ -91,7 +183,7 @@
                 div.animate({width: '400px', opacity: '0.8'}, "slow");
                 div.animate({height: '200px', opacity: '0.4'}, "slow");
                 div.animate({width: '200px', opacity: '0.8'}, "slow");
-                $("#btnAnimate").animate({height:'150px',opacity:0.5},"slow");
+                $("#btnAnimate").animate({height: '150px', opacity: 0.5}, "slow");
                 /*$("#div1").animate({left:'250px'},1000);*/
                 /*$("#slideDemo").animate({left:'250px'});*/
             });
@@ -105,7 +197,7 @@
                 $("#divAni").find('*').addClass("find");
                 $("div li").first().addClass("find");
             });
-            $("#btnReback").click(function(){
+            $("#btnRemove").click(function () {
                 $("h1,p,button,li").removeClass("blue");
             })
         });
@@ -115,29 +207,38 @@
          $("#btnAnimate").animate({left, '200px'});
          });
          }*/
+        jQuery(document).ready(function () {
+            jQuery("#btnCheckCookie").click(function () {
+                checkCookie();
+            });
+        });
     </script>
     <style type="text/css">
-        .blue
-        {
-            font-size:20px;
-            color:blue;
+        .blue {
+            font-size: 20px;
+            color: blue;
+            padding: 8px;
+            margin: 5px;
         }
-        .buttom
-        {
-            color:red;
-            border:2px solid red;
-            padding:3px;
+
+        .buttom {
+            color: red;
+            border: 2px solid red;
+            padding: 8px;
+            margin: 5px;
         }
-        .find
-        {
-            color:black;
-            border:2px solid red;
-            padding:2px;
+
+        .find {
+            color: black;
+            border: 2px solid red;
+            padding: 8px;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-<img id="img1" onclick="changeColor()" src="http://image.golaravel.com/1/aa/93c9b828aaae16fc7adf7dd803fb6.png" width="572px" height="295px">
+<img id="img1" onclick="changeColor()" src="http://image.golaravel.com/1/aa/93c9b828aaae16fc7adf7dd803fb6.png"
+     width="572px" height="295px">
 <div>
     <ul>jquery基本语法：
         <li>通过选取HTML元素，并对选取的元素执行某些操作</li>
@@ -153,14 +254,21 @@
                 <li>eq()方法返回指定下标的元素</li>
                 <li>first()返回被选元素的首个元素，last()与first()对应</li>
             </ol>
+            <dl>
+        <li>jquery 通过noConflict()方法处理$符号的冲突；eg: $.noConflict()之后简写的$用jQuery代替</li>
+        <li>var varname = $.noConflict()可用来创建简写</li>
+        </dl>
         </li>
     </ul>
 </div>
+<button type="button" id="btnShow">show ming</button>
 <button type="button" onclick="myFunction1()">click</button>
+<button type="button" onclick="sliceDemo(1,2,3,4,5)">sliceDemo</button>
 <p id="test1"></p>
 <input type="text" id="txt1">
 <button type="button" onclick="myFunction()">input</button>
 <button type="button" onclick="alert('testjs')">testJs</button>
+<button type="button" id="btnRemove">remove style</button>
 <div id="slideDemo" style="width:300px;height:300px;background-color:#31f8ff;">
     <div id="div1" style="width:80px;height:80px;display:none;background-color:#ff2d25;"></div>
     <br>
@@ -177,7 +285,7 @@
 <div id="divAni" style="width:500px;height:60px;background-color:#5bdbff;position:absolute;">
     <button type="button" id="btnAnimate">ANIMATE BUTTON</button>
 </div>
-<button type="button" id="btnCheckCookie" onclick="checkCookie()" style="position:static">CHECK COOKIE</button>
+<button type="button" id="btnCheckCookie" style="position:static">CHECK COOKIE</button>
 <button type="button" id="btnReback">REBACK</button>
 </body>
 </html>
