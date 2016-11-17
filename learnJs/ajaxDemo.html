@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <script src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1000">
+    <title>ajaxDemo</title>
+    <script>
+        function function1() {
+            function success(datas) {
+                var txt1 = document.getElementById("txt1");
+                txt1.value = datas;
+            }
+
+            function fail(code) {
+                var txt1 = document.getElementById("txt1");
+                txt1.value = "错误code:" + code;
+            }
+
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState === 4) {
+                    if (request.status === 200) {
+                        return success(request.responseText);
+                    } else {
+                        return fail(request.status);
+                    }
+                } else {
+
+                }
+            }
+
+            request.open('GET', 'text.txt');
+            request.send();
+
+            alert('请求已发送，请等待响应...');
+        }
+
+        $(function () {
+            $("#btn2").click(function () {
+                getPrice();
+            })
+        });
+
+        function getPrice() {
+            var js = document.createElement('script');
+            var head = document.getElementsByTagName('head')[0];
+            js.src = "http://api.money.126.net/data/feed/0000001,1399001?callback=refreshPrice";
+            head.appendChild(js);
+        }
+
+        function refreshPrice(data) {
+            var p = document.getElementById('test-jsonp');
+            p.innerHTML = '当前价格：' +
+                    data['0000001'].name + ': ' +
+                    data['0000001'].price + '；' +
+                    data['1399001'].name + ': ' +
+                    data['1399001'].price;
+        }
+
+        function getCanvas() {
+            var cav = document.getElementById("cav");
+            var ctx = cav.getContext('2d');
+            ctx.clearRect(0, 0, 300, 200); // 擦除(0,0)位置大小为200x200的矩形，擦除的意思是把该区域变为透明
+            ctx.fillStyle = '#dddddd'; // 设置颜色
+            ctx.fillRect(10, 10, 150, 130); // 把(10,10)位置大小为130x130的矩形涂色
+            // 利用Path绘制复杂路径:
+            var path = new Path2D();
+            path.arc(85, 75, 50, 0, Math.PI * 2, true);
+            path.moveTo(110, 75);
+            path.arc(85, 75, 35, 0, Math.PI, false);
+            path.moveTo(65, 65);
+            path.arc(70, 65, 5, 0, Math.PI * 2, true);
+            path.moveTo(95, 65);
+            path.arc(90, 65, 5, 0, Math.PI * 2, true);
+            ctx.strokeStyle = '#0000ff';
+            path.moveTo(180, 10);
+            path.rect(180, 10, 80, 80);
+            ctx.lineWidth = "1";
+            ctx.stroke(path);
+        }
+
+        $(function () {
+            var cav = document.getElementById('cav');
+            var context = cav.getContext('2d');
+            context.fillStyle = "#dddddd";
+            var paint = false;
+
+            $("#cav").mousedown(function (e) {
+                paint = true;
+                console.log(e.offsetX + "," + e.pageX);
+                console.log(e.offsetY + "," + e.pageY);
+                //context.arc(e.pageX-this.offsetLeft,e.pageY-this.offsetTop);
+                context.moveTo(0.35 * e.offsetX, 0.35 * e.offsetY);
+            });
+
+            $('#cav').mousemove(function (e) {
+                if (paint) {
+                    $("#cavLab").text("offsetX:" + e.offsetX + "offsetY" + e.offsetY);
+
+                    context.lineTo(0.35 * e.offsetX, 0.35 * e.offsetY);
+                    context.stroke();
+                }
+            });
+
+            $('#cav').mouseup(function (e) {
+                paint = false;
+            });
+
+            $('#cav').mouseleave(function (e) {
+                paint = false;
+            });
+
+            $('#refresh').click(function () {
+                context.clearRect(0, 0, 800, 450);
+            });
+        });
+
+        $(function () {
+            $("#btn4").click(function () {
+                // 加载最近30个交易日的K线图数据:
+                var js = document.createElement('script');
+                js.src = 'http://img1.money.126.net/data/hs/kline/day/history/2016/0000001.json?callback=loadStockData&t=' + Date.now();
+                document.getElementsByTagName('head')[0].appendChild(js);
+            });
+        });
+
+        loadStockData = function (r) {
+            var NUMS = 30, data = r.data;
+            if (data.length > NUMS) {
+                data = data.slice(data.length - NUMS);
+            }
+            data = data.map(function (x) {
+                return {
+                    date: x[0],
+                    open: x[1],
+                    close: x[2],
+                    high: x[3],
+                    low: x[4],
+                    vol: x[5],
+                    change: x[6]
+                };
+            });
+            drawStock(data);
+        }
+
+        drawStock = function (data) {
+            var
+                    canvas = document.getElementById('cav'),
+                    width = canvas.width,
+                    height = canvas.height,
+                    ctx = canvas.getContext('2d');
+            // {"date":"201601002","open":4844.7,"close":4910.53,"high":4911.57,"low":4797.55,"vol":62374809900,"change":1.69}
+            console.log(JSON.stringify(data));
+            ctx.fillStyle = "#000000";
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillRect(0, 0, width, height);
+            //ctx.fillText('Test Canvas', 10, 10);
+
+            /*var datas = JSON.stringify(data);
+             console.log(datas);
+             for (var i = 0; i < datas.length; i++) {
+             //ctx.lineTo();
+             }
+             ctx.strokeStyle = '#0000ff';
+             ctx.stroke();*/
+
+            var wcell = width / 30, low = data[0].low, high = data[0].high, ratio, i;
+            for (i = 0; i < 30; i++) {
+                low = Math.min(low, data[i].low);
+                high = Math.max(high, data[i].high);
+            }
+            ratio = (high - low) / height;
+            for (i = 0; i < 30; i++) {
+                if (data[i].close > data[i].open) {
+                    ctx.fillStyle = '#FF0000';
+                    ctx.fillRect(i * wcell + wcell * (1 / 2 - 1 / 16), (high - data[i].high) / ratio, wcell / 8, (data[i].high - data[i].close) / ratio);
+                    ctx.fillRect(i * wcell, (high - data[i].close) / ratio, wcell, (data[i].close - data[i].open) / ratio);
+                    ctx.fillRect(i * wcell + wcell * (1 / 2 - 1 / 16), (high - data[i].open) / ratio, wcell / 8, (data[i].open - data[i].low) / ratio);
+                }
+                else {
+                    ctx.fillStyle = '#00ff00';
+                    ctx.fillRect(i * wcell + wcell * (1 / 2 - 1 / 16), (high - data[i].high) / ratio, wcell / 8, (data[i].high - data[i].open) / ratio);
+                    ctx.fillRect(i * wcell, (high - data[i].open) / ratio, wcell, (data[i].open - data[i].close) / ratio);
+                    ctx.fillRect(i * wcell + wcell * (1 / 2 - 1 / 16), (high - data[i].close) / ratio, wcell / 8, (data[i].close - data[i].low) / ratio);
+                }
+            }
+            //ctx.stroke();
+        };
+
+        $(function(){
+            var
+                    form = $('#test-form'),
+                    langs = form.find('[name=lang]'),
+                    selectAll = form.find('label.selectAll :checkbox'),
+                    selectAllLabel = form.find('label.selectAll span.selectAll'),
+                    deselectAllLabel = form.find('label.selectAll span.deselectAll'),
+                    invertSelect = form.find('a.invertSelect');
+
+            // 重置初始化状态:
+            form.find('*').show().off();
+            form.find(':checkbox').prop('checked', false).off();
+            deselectAllLabel.hide();
+            // 拦截form提交事件:
+            form.off().submit(function (e) {
+                e.preventDefault();
+                alert(form.serialize());
+            });
+
+            selectAll.click(function(){
+                console.log(langs.prop("checked"));
+                langs.prop("checked",selectAll.prop("checked"));
+                if(selectAll.prop("checked")){
+                    selectAllLabel .hide();
+                    deselectAllLabel.show();
+                } else {
+                    deselectAllLabel.hide();
+                    selectAllLabel .show();
+                }
+            });
+
+            invertSelect.click(function(){
+                langs.each(function(){
+                    $(this).prop("checked",!$(this).prop("checked"));
+                });
+                selectAll.prop("checked",langs.length == form.find('[name=lang]:checked').length);
+                if(selectAll.prop("checked")){
+                    selectAllLabel .hide();
+                    deselectAllLabel.show();
+                } else {
+                    deselectAllLabel.hide();
+                    selectAllLabel .show();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+    <p id="test-jsonp"></p>
+    <div class="col-xs-push-8">
+        <div class="col-sm-12">
+            <input type="text" id="txt1" value="" class="form-inline">
+            <button type="button" id="btn1" class="btn btn-default" onclick="function1()">button1</button>
+        </div>
+        <div class="col-lg-12">
+            <label id="lbl1"></label>
+            <button type="button" id="btn2" class="btn btn-default">button2</button>
+            <button type="button" id="btn4" class="btn btn-default">button4</button>
+        </div>
+        <div class="col-lg-2 col-sm-10">
+            <label>canvas DEMO</label>
+            <button type="button" class="btn btn-default" onclick="getCanvas()">button3</button>
+            <button type="button" class="btn btn-default" id="refresh">refresh</button>
+            <label id="cavLab" class="label-info">鼠标位置：</label>
+            <canvas id="cav" style="background-color: #d4eee6;width:800px;height:450px;">
+            </canvas>
+        </div>
+        <div class="col-lg-12">
+            <label>canvas详解</label>
+            <ol>
+                <li>
+                    aa
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-12">
+            <label>video详解</label>
+            <video src="http://www.w3school.com.cn/tiy/i/movie.ogg" controls="controls"></video>
+        </div>
+    </div>
+
+    <div class="col-lg-pull-1">
+        <form id="test-form" action="test">
+            <legend>请选择想要学习的编程语言：</legend>
+            <fieldset>
+                <p><label class="selectAll"><input type="checkbox"> <span class="selectAll">全选</span><span class="deselectAll">全不选</span></label> <a href="#0" class="invertSelect">反选</a></p>
+                <p><label><input type="checkbox" name="lang" value="javascript"> JavaScript</label></p>
+                <p><label><input type="checkbox" name="lang" value="python"> Python</label></p>
+                <p><label><input type="checkbox" name="lang" value="ruby"> Ruby</label></p>
+                <p><label><input type="checkbox" name="lang" value="haskell"> Haskell</label></p>
+                <p><label><input type="checkbox" name="lang" value="scheme"> Scheme</label></p>
+                <p><button type="submit">Submit</button></p>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

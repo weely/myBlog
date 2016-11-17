@@ -161,8 +161,11 @@
 
             console.log(arr.sort());
 
-            var arrowDemo = 3 => x*x;
-            console.log(arrowDemo);
+            /*var arrowDemo = 3 => 3*3;
+            console.log(arrowDemo);*/
+            console.log(123..toString());
+
+            //document对象有cookie属性
         }
 
         $(document).ready(function () {
@@ -212,6 +215,15 @@
                 checkCookie();
             });
         });
+
+        /*$(funciton(){
+            $("#file").change(function(){
+                $("#txt1").value = '文件: ' + $("#file").files[0].name + '<br>' +
+                        '大小: ' + $("#file").files[0].size + '<br>' +
+                        '修改: ' + $("#file").files[0].lastModifiedDate;
+            });
+        });*/
+
     </script>
     <style type="text/css">
         .blue {
@@ -238,7 +250,7 @@
 </head>
 <body>
 <img id="img1" onclick="changeColor()" src="http://image.golaravel.com/1/aa/93c9b828aaae16fc7adf7dd803fb6.png"
-     width="572px" height="295px">
+     width="572px" height="295px"/>
 <div>
     <ul>jquery基本语法：
         <li>通过选取HTML元素，并对选取的元素执行某些操作</li>
@@ -265,7 +277,18 @@
 <button type="button" onclick="myFunction1()">click</button>
 <button type="button" onclick="sliceDemo(1,2,3,4,5)">sliceDemo</button>
 <p id="test1"></p>
-<input type="text" id="txt1">
+<form enctype="multipart/form-data" method="post" action="testjs.html">
+    <fieldset>
+        <legend>表头</legend>
+            <img src="" id="img1"/><br><br>
+            <input type="file" id="file"><br><br>
+            <input type="text" id="txt1">
+            <input type="color" value="#ff0000"><br><br>
+            <input type="date" value=""><br><br>
+            <input type="datetime-local" value="2015-07-01T02:03:04"><br><br>
+            <input type="submit" id="btnSubmit" value="提交">
+    </fieldset>
+</form>
 <button type="button" onclick="myFunction()">input</button>
 <button type="button" onclick="alert('testjs')">testJs</button>
 <button type="button" id="btnRemove">remove style</button>

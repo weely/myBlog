@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <script src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <title>Title</title>
+
+    <script>
+        $(function(){
+            var json1 = $("#test-form").find("input,select,button");
+
+            $("#btn1").click(function(){
+                jsonstr = json1.map(function(){
+                    return this.name + ":" + this.value;
+                }).get();
+                console.log(jsonstr);
+
+                json = form2Json("test-form");
+                console.log(json);
+            });
+            //法2
+            var form2Json = formId=>{
+                var result = {};
+                $("#"+formId).serializeArray().forEach(data=>{
+                    result[data.name] = data.value;
+            });
+                return JSON.stringify(result);
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="nav">
+    <label>DOM select && filter</label>
+</div>
+<div class="container">
+    <div class="col-lg-pull-12">
+        <form id="test-form" action="#0" onsubmit="return false;" class="form-horizontal">
+            <p><label>Name: <input name="name"></label></p>
+            <p><label>Email: <input name="email"></label></p>
+            <p><label>Password: <input name="password" type="password"></label></p>
+            <p>Gender: <label><input name="gender" type="radio" value="m" checked> Male</label> <label><input name="gender" type="radio" value="f"> Female</label></p>
+            <p><label>City: <select name="city" class="btn-default">
+                <option value="BJ" selected>Beijing</option>
+                <option value="SH">Shanghai</option>
+                <option value="CD">Chengdu</option>
+                <option value="XM">Xiamen</option>
+            </select></label></p>
+            <p><button type="submit" class="btn-default" id="btn1">Submit</button></p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

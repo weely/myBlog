@@ -45,3 +45,5 @@ echo $datas->name;
 //composer create-project laravel/laravel projectName --prefer-dist
 //composer create-project laravel/laravel projectName --prefer-dist
 //js判断数组需要用 Array.isArray(arr); 来判断
+
+//composer dump-autoload
