@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Validator;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use Hash;
+use Config;
 use App\Token;
+use Request as Requests;
 
 class UserController extends Controller
 {
@@ -21,8 +22,8 @@ class UserController extends Controller
     public function index()
     {
         $d = Token::find(1);
-        dd($d->toArray());
-        //return view('auth.login');
+        //dd($d->toArray());
+        return view('auth.login');
     }
 
     public function store(Request $request)
@@ -37,9 +38,9 @@ class UserController extends Controller
         if ($validator->fails()) {
             return view('auth.login')->withErrors($validator->errors());
         }
-        $user = User::where('email', $request->email);
+        $user = User::where('email', $request->email)->first();
         if ($user->exists()) {
-            $password = $user->first()->password;
+            $password = $user->password;
             $input_password = $request->password;
             if (Hash::check($input_password, $password)) {
                 $user_id = $user->id;
@@ -47,8 +48,8 @@ class UserController extends Controller
                 if ($cache == 'redis') {
 
                 } else {
-                    $result['_token'] = $this->setToken($user_id);
-                    return view('auth.login', $result);
+                    $result['_token'] = $this->createToken($user_id);
+                    return redirect()->route('admin');
                 }
             } else {
                 return view('auth.login')->withErrors('The password confirmation does not match.');
@@ -70,5 +71,13 @@ class UserController extends Controller
         $userToken->last_access_at = date('Y-m-d H:i:s', time());
         $userToken->save();
         return $userToken;
+    }
+
+    public function destory(Request $request, $id){
+        $userToken = Token::findOrFail($id);
+        if ($userToken) {
+            $userToken->delete();
+            return view('auth.login');
+        }
     }
 }

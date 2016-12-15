@@ -42,6 +42,9 @@ echo $datas->name;
 
 
 //创建项目语句
+//创建指定版本的laravel项目
+//composer create-project laravel/laravel=5.0.* projectName --prefer-dist
+//composer create-project laravel/laravel=5.0.* --prefer-dist
 //composer create-project laravel/laravel projectName --prefer-dist
 //composer create-project laravel/laravel projectName --prefer-dist
 //js判断数组需要用 Array.isArray(arr); 来判断
