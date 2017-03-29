@@ -14,8 +14,8 @@
 //Admin area
 
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::get('admin', function(){
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('admin', function () {
         return redirect('/admin/post');
     });
 
@@ -31,8 +31,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', function () {
         return redirect('/blog');
     });
-    Route::get('blog','BlogController@index');
-    Route::get('blog/{slug}','BlogController@showPost');
+    Route::get('blog', 'BlogController@index');
+    Route::get('blog/{slug}', 'BlogController@showPost');
 });
 
 //Route::resource('/user', 'Auth\UserController');
@@ -42,4 +42,20 @@ Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
-Route::get('mail/send','MailController@send');
+Route::get('mail/send', 'MailController@send');
+
+Route::get('captcha/{tmp}', 'CaptchaController@captcha');
+
+Route::post('/captcha', function () {
+    $userInput = Request::get('captcha');
+
+    if (Session::get('milkcaptcha') == $userInput) {
+        //用户输入验证码正确
+        var_dump(Session::get('milkcaptcha'));
+        return '您输入验证码正确';
+    } else {
+        //用户输入验证码错误
+        var_dump(Session::get('milkcaptcha'));
+        return '您输入验证码错误';
+    }
+});

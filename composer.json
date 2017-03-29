@@ -10,7 +10,8 @@
         "dflydev/apache-mime-types": "^1.0",
         "doctrine/dbal": "^2.5",
         "michelf/php-smartypants": "1.6.x-dev",
-        "michelf/php-markdown": "^1.6"
+        "michelf/php-markdown": "^1.6",
+        "gregwar/captcha": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

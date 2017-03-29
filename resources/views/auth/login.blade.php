@@ -38,6 +38,29 @@
                         </div>
 
                         <div class="form-group">
+                            <lable class="col-md-4 control-label">验证码</lable>
+                            <div class="col-md-6">
+                                <img id="captcha_img" border='1' width="100" height="40" src="{{ url('captcha/1') }}" />
+                                    <a href="javascript:void(0)" onclick="javascript:re_captcha();">换一个?</a>
+
+                                <script>
+                                    function re_captcha() {
+                                        $url = "{{ URL('/captcha') }}";
+                                        $url = $url + "/" + Math.random();
+                                        document.getElementById('captcha_img').src = $url;
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <lable class="col-md-4 control-label">请输入验证码</lable>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="captcha" value="" autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
